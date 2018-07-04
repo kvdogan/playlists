@@ -1,0 +1,72 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+#--------------- Django stuff ---------------#
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*~
+
+# Django stuff:
+*.log
+local_settings.py
+
+# Ref files
+__ref_files/**
+__ref/**
+
+# Fixtures
+**/fixtures/**
+
+
+# DB files
+*.sqlite3
+
+#VS Code settings
+.vscode/**
+
+#---------------- React stuff ----------------#
+
+# Byte-compiled / optimized / DLL files
+*~
+
+# dependencies
+**/node_modules/**
+
+# testing
+coverage/
+flow-coverage/
+test/the-files-to-test.generated.js
+fixtures/dom/public/react-dom.js
+fixtures/dom/public/react.js
+
+# production
+/build
+/static/bundles/local/
+webpack-stats-local.json
+webpack.local-settings.js
+
+# logging
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.module-cache
+.grunt
+
+scripts/flow/*/.flowconfig
+_SpecRunner.html
+__benchmarks__
+remote-repo/
+
+chrome-user-data
+*.iml
+*.swp
+*.swo
