@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { fab } from '@fortawesome/pro-light-svg-icons';
+import { faSpinner } from '@fortawesome/pro-solid-svg-icons';
 import './App.css';
+
+library.add(faSpinner);
 
 const fakeServerData = {
   user: {
     name: 'Dogan',
     playlists: [
       {
-        name: 'My favorites',
+        name: 'My favorites123',
         songs: [
           { name: 'Beat It', duration: 240000 },
           { name: 'Cannelloni Makaroni', duration: 280000 },
@@ -188,7 +194,7 @@ class App extends Component {
       : [];
 
     return (
-      <div className="App">
+      <div style={{ textAlign: 'center' }}>
         {
           serverData.user ? (
             <div>
@@ -206,7 +212,7 @@ class App extends Component {
             </div>
           ) : (
             <div style={{ ...defaultStyle, margin: '25%' }}>
-              <i className="fa fa-3x fa-spinner fa-spin" />
+              <FontAwesomeIcon icon="spinner" size="3x" spin />
               <br /><br />
               Loading!
             </div>
