@@ -127,6 +127,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "mysitestatic"),
 ]
 
+# For collectstatic command before deployment
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 # This is for local development
 WEBPACK_LOADER = {
     'DEFAULT': {
