@@ -18,7 +18,7 @@ const miniCssExtractPlugin = new MiniCssExtractPlugin({
 });
 
 const bundleTracker = new BundleTracker({
-  filename: './webpack-stats.json',
+  filename: '../webpack-stats.json',
 });
 
 module.exports = {
@@ -28,7 +28,7 @@ module.exports = {
     vendors: ['react'],
   },
   output: {
-    path: path.resolve('dist'),
+    path: path.resolve('../mysitestatic/build'),
     filename: '[name]-[hash].js',
   },
   module: {

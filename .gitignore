@@ -42,10 +42,9 @@ fixtures/dom/public/react-dom.js
 fixtures/dom/public/react.js
 
 # production
-/build
-/static/bundles/local/
-webpack-stats-local.json
-webpack.local-settings.js
+mysitestatic/build/
+webpack-stats*.json
+webpack.*-settings.js
 
 # logging
 npm-debug.log*
