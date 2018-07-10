@@ -41,12 +41,37 @@ INSTALLED_APPS = [
 	'webpack_loader',
 ]
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
+
+STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
-	os.path.join(BASE_DIR, "mysitestatic"),
+    os.path.join(BASE_DIR, "mysitestatic"),
 ]
+
+# For collectstatic command before deployment
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+# This is for local development
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'build/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
+
 ```
 ## mysite/urls.py
 ```python
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('{app_name}.urls', namespace='{app_name}')),
+]
+
 from django.conf import settings
 if settings.DEBUG:
     import debug_toolbar
@@ -201,7 +226,7 @@ const miniCssExtractPlugin = new MiniCssExtractPlugin({
 });
 
 const bundleTracker = new BundleTracker({
-  filename: './webpack-stats.json',
+  filename: '../webpack-stats.json',
 });
 
 module.exports = {
@@ -211,7 +236,7 @@ module.exports = {
     vendors: ['react'],
   },
   output: {
-    path: path.resolve('dist'),
+    path: path.resolve('../mysitestatic/build'),
     filename: '[name]-[hash].js',
   },
   module: {
