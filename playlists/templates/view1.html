@@ -1,4 +1,5 @@
 {% load render_bundle from webpack_loader %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,11 +7,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <link rel="manifest" href="./src/manifest.json">
-    <link rel="shortcut icon" href="./src/favicon.ico">
+    <link rel="manifest" href="{% static 'build/manifest.json' %}" >
+    <link rel="shortcut icon" href="{% static 'build/favicon.ico' %}">
 
     <title>Spotify Playlist</title>
-  <link rel="shortcut icon" href="favicon.ico"></head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
