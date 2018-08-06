@@ -328,13 +328,13 @@ $project_folder:
 ```json
 {
     "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
-    "files.autoSave": "afterDelay",    
-    "window.zoomLevel": 0,
     "workbench.colorTheme": "Monokai",
-    "editor.rulers": [
-        97
-    ],
+    "files.autoSave": "afterDelay",
+    "editor.rulers": [97],
     "jupyter.appendResults": false,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "terminal.integrated.rightClickBehavior": "selectWord",
+    "window.title": "${dirty}${rootName}${separator}${activeEditorShort}${separator}${appName}",
 }
 ```
 ### .vscode Workspace configuration
