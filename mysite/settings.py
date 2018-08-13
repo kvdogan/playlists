@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # Apps
     'playlists',
     # 3rd party apps
+    'debug_toolbar',
     'webpack_loader',
 ]
 
@@ -51,6 +52,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # 3rd Party middleware
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -129,6 +133,9 @@ STATICFILES_DIRS = [
 
 # For collectstatic command before deployment
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+# For django-debug-tools
+INTERNAL_IPS = ['127.0.0.1', ]
 
 # This is for local development
 WEBPACK_LOADER = {
