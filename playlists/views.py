@@ -91,6 +91,10 @@ def get_album_data(auth_header, username='me', limit=50, offset=0):
     return album_tracks
 
 
+def home(request):
+    return render(request, "view1.html", {})
+
+
 def callback(request):
     authorization_header = _user_Authorization(request)
 
@@ -103,11 +107,45 @@ def callback(request):
     # Gathering of artist, album, track etc from album data
     album_data = get_album_data(authorization_header)
 
+    serverData = {
+        'user': {
+            'name': 'Dogan',
+            'playlists': [
+                {
+                    'name': 'Kahraman Veysel Dogan',
+                    'songs': [
+                        {'name': 'Beat It', 'duration': 240000},
+                        {'name': 'Cannelloni Makaroni', 'duration': 280000},
+                        {'name': 'Rosa helikopter', 'duration': 300000},
+                    ],
+                },
+                {
+                    'name': 'Gamze Balyemez Dogan',
+                    'songs': [
+                        {'name': 'Beat It', 'duration': 240000},
+                        {'name': 'Cannelloni Makaroni', 'duration': 240000},
+                        {'name': 'Rosa helikopter', 'duration': 240000},
+                    ],
+                },
+                {
+                    'name': 'Havin Dogan',
+                    'songs': [
+                        {'name': 'Naz Bari', 'duration': 320000},
+                        {'name': 'Azeri Oyun Havasi', 'duration': 300000},
+                        {'name': 'Acil Ey Omrumun Vari', 'duration': 360000},
+                        {'name': 'Yakalarsam', 'duration': 360000},
+                    ],
+                },
+            ],
+        },
+    }
+
     return render(
-        request, "songbank.html",
+        request, "view1.html",
         {
-            'profile_data': profile_data,
-            'playlist_data': playlist_data,
-            'album_data': album_data
+            'serverData': serverData,
+            # 'profile_data': profile_data,
+            # 'playlist_data': playlist_data,
+            # 'album_data': album_data
         }
     )

@@ -1,75 +1,64 @@
 import React, { Component } from 'react';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { library } from '@fortawesome/fontawesome-svg-core';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { fab } from '@fortawesome/pro-light-svg-icons';
-import { faSpinner } from '@fortawesome/pro-solid-svg-icons';
+// import { faSpinner } from '@fortawesome/pro-solid-svg-icons';
 import './App.css';
 
-library.add(faSpinner);
+// library.add(faSpinner);
 
-const fakeServerData = {
-  user: {
-    name: 'Dogan',
-    playlists: [
-      {
-        name: 'My favorites123',
-        songs: [
-          { name: 'Beat It', duration: 240000 },
-          { name: 'Cannelloni Makaroni', duration: 280000 },
-          { name: 'Rosa helikopter', duration: 300000 },
-        ],
-      },
-      {
-        name: 'Discover Weekly',
-        songs: [
-          { name: 'Beat It', duration: 240000 },
-          { name: 'Cannelloni Makaroni', duration: 240000 },
-          { name: 'Rosa helikopter', duration: 240000 },
-        ],
-      },
-      {
-        name: 'Bana Ozel',
-        songs: [
-          { name: 'Naz Bari', duration: 320000 },
-          { name: 'Azeri Oyun Havasi', duration: 300000 },
-          { name: 'Acil Ey Omrumun Vari', duration: 360000 },
-          { name: 'Yakalarsam', duration: 360000 },
-        ],
-      },
-      {
-        name: 'Another playlist - the best!',
-        songs: [
-          { name: 'Beat It', duration: 240000 },
-          { name: 'Cannelloni Makaroni', duration: 240000 },
-          { name: 'Rosa helikopter', duration: 240000 },
-        ],
-      },
-      {
-        name: 'MyPlaylist',
-        songs: [
-          { name: 'Beat It', duration: 240000 },
-          { name: 'Cannelloni Makaroni', duration: 240000 },
-          { name: 'Rosa helikopter', duration: 240000 },
-        ],
-      },
-    ],
-  },
-};
+// const fakeServerData = {
+//   user: {
+//     name: 'Dogan',
+//     playlists: [
+//       {
+//         name: 'My favorites123',
+//         songs: [
+//           { name: 'Beat It', duration: 240000 },
+//           { name: 'Cannelloni Makaroni', duration: 280000 },
+//           { name: 'Rosa helikopter', duration: 300000 },
+//         ],
+//       },
+//       {
+//         name: 'Discover Weekly',
+//         songs: [
+//           { name: 'Beat It', duration: 240000 },
+//           { name: 'Cannelloni Makaroni', duration: 240000 },
+//           { name: 'Rosa helikopter', duration: 240000 },
+//         ],
+//       },
+//       {
+//         name: 'Bana Ozel',
+//         songs: [
+//           { name: 'Naz Bari', duration: 320000 },
+//           { name: 'Azeri Oyun Havasi', duration: 300000 },
+//           { name: 'Acil Ey Omrumun Vari', duration: 360000 },
+//           { name: 'Yakalarsam', duration: 360000 },
+//         ],
+//       },
+//       {
+//         name: 'Another playlist - the best!',
+//         songs: [
+//           { name: 'Beat It', duration: 240000 },
+//           { name: 'Cannelloni Makaroni', duration: 240000 },
+//           { name: 'Rosa helikopter', duration: 240000 },
+//         ],
+//       },
+//       {
+//         name: 'MyPlaylist',
+//         songs: [
+//           { name: 'Beat It', duration: 240000 },
+//           { name: 'Cannelloni Makaroni', duration: 240000 },
+//           { name: 'Rosa helikopter', duration: 240000 },
+//         ],
+//       },
+//     ],
+//   },
+// };
 
 const defaultStyle = {
   color: '#fff',
 };
-
-
-// class PlaylistCounter extends Component {
-//   render() {
-//     return (
-//       <div style={{ ...defaultStyle, width: '30%', display: 'inline-block' }}>
-//         <h2>{this.props.playlists.length} playlists</h2>
-//       </div>
-//     );
-//   }
-// }
 
 
 const PlaylistCounter = ({ playlists }) => (
@@ -78,17 +67,6 @@ const PlaylistCounter = ({ playlists }) => (
   </div>
 );
 
-// class SongCounter extends Component {
-//   render() {
-//     const allsongs = this.props.playlists
-//       .reduce((songs, eachplaylist) => songs.concat(eachplaylist.songs), []);
-//     return (
-//       <div style={{ ...defaultStyle, width: '30%', display: 'inline-block' }}>
-//         <h2>{allsongs.length} songs</h2>
-//       </div>
-//     );
-//   }
-// }
 
 const SongCounter = ({ playlists }) => {
   const allsongs = playlists
@@ -100,18 +78,6 @@ const SongCounter = ({ playlists }) => {
   );
 };
 
-// class HourCounter extends Component {
-//   render() {
-//     const allSongs = this.props.playlists
-//       .reduce((songs, eachPlaylist) => songs.concat(eachPlaylist.songs), []);
-//     const totalDuration = allSongs.reduce((sum, eachSong) => sum + eachSong.duration, 0);
-//     return (
-//       <div style={{ ...defaultStyle, width: '30%', display: 'inline-block' }}>
-//         <h2>{totalDuration / 60000} minutes</h2>
-//       </div>
-//     );
-//   }
-// }
 
 const HourCounter = ({ playlists }) => {
   const allSongs = playlists
@@ -124,17 +90,6 @@ const HourCounter = ({ playlists }) => {
   );
 };
 
-// class Filter extends Component {
-//   render() {
-//     return (
-//       <div style={defaultStyle}>
-//         <img src="" alt="" />
-//         <input type="text" onKeyUp={event => this.props.onTextChange(event.target.value)} />
-//         Filter
-//       </div>
-//     );
-//   }
-// }
 
 const Filter = ({ onTextChange }) => (
   <div style={defaultStyle}>
@@ -144,20 +99,6 @@ const Filter = ({ onTextChange }) => (
   </div>
 );
 
-
-// class Playlist extends Component {
-//   render() {
-//     return (
-//       <div style={{ ...defaultStyle, width: '20%', display: 'inline-block' }}>
-//         <img src="" alt="" />
-//         <h3>{this.props.playlist.name}</h3>
-//         <ul>
-//           {this.props.playlist.songs.map(song => <li>{song.name}</li>)}
-//         </ul>
-//       </div>
-//     );
-//   }
-// }
 
 const Playlist = ({ playlist }) => (
   <div style={{ ...defaultStyle, width: '20%', display: 'inline-block' }}>
@@ -180,9 +121,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({ serverData: fakeServerData });
-    }, 1000);
+    // setTimeout(() => {
+    //   this.setState({ serverData: fakeServerData });
+    // }, 1000);
   }
 
   render() {
@@ -211,11 +152,17 @@ class App extends Component {
               }
             </div>
           ) : (
-            <div style={{ ...defaultStyle, margin: '25%' }}>
-              <FontAwesomeIcon icon="spinner" size="3x" spin />
-              <br /><br />
-              Loading!
-            </div>
+            // <div style={{ ...defaultStyle, margin: '25%' }}>
+            //   <FontAwesomeIcon icon="spinner" size="3x" spin />
+            //   <br /><br />
+            //   Loading!
+            // </div>
+            <button
+              onClick={() => { window.location = 'http://127.0.0.1:8000/authorize/'; }}
+              type="button"
+              style={{ padding: '20px', 'font-size': '50px', 'margin-top': '20px' }}
+            >Sign in with Spotify!
+            </button>
           )
         }
       </div>
