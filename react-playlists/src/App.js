@@ -160,7 +160,7 @@ class App extends Component {
             <button
               onClick={() => { window.location = 'http://127.0.0.1:8000/authorize/'; }}
               type="button"
-              style={{ padding: '20px', 'font-size': '50px', 'margin-top': '20px' }}
+              style={{ padding: '20px', 'font-size': '50px', 'margin-top': '20px', background: 'tomato'}}
             >Sign in with Spotify!
             </button>
           )

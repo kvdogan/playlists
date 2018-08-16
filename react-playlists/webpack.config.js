@@ -30,6 +30,8 @@ module.exports = {
   output: {
     path: path.resolve('../mysitestatic/build'),
     filename: '[name]-[hash].js',
+    publicPath: 'http://127.0.0.1:8080/mysitestatic/build/',
+
   },
   module: {
     rules: [
