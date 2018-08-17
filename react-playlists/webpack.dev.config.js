@@ -9,12 +9,11 @@ const htmlWebpackPlugin = new HtmlWebPackPlugin({
   favicon: './src/favicon.ico',
 });
 
-const devMode = process.env.NODE_ENV !== 'production';
 const miniCssExtractPlugin = new MiniCssExtractPlugin({
   // Options similar to the same options in webpackOptions.output
   // both options are optional
-  filename: devMode ? '[name].css' : '[name].[hash].css',
-  chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+  filename: '[name].css',
+  chunkFilename: '[id].css',
 });
 
 const bundleTracker = new BundleTracker({
@@ -22,7 +21,7 @@ const bundleTracker = new BundleTracker({
 });
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   context: path.resolve(__dirname), // Current directory
   entry: {
     app: path.resolve('./src', 'index.js'), // './src/index.js'
@@ -31,6 +30,8 @@ module.exports = {
   output: {
     path: path.resolve('../mysitestatic/build'),
     filename: '[name]-[hash].js',
+    publicPath: 'http://127.0.0.1:8080/mysitestatic/build/',
+
   },
   module: {
     rules: [
@@ -55,7 +56,7 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'style-loader',
           'css-loader',
           // 'postcss-loader',
           // 'sass-loader',
