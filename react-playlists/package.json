@@ -7,8 +7,8 @@
   "author": "kvdogan",
   "license": "ISC",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production"
+    "start": "webpack-dev-server --open --config webpack.development.config.js",
+    "build": "webpack --config webpack.production.config.js"
   },
   "babel": {
     "presets": [
