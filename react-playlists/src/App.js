@@ -163,7 +163,7 @@ class App extends Component {
             //   Loading!
             // </div>
             <button
-              onClick={() => { window.location = 'http://127.0.0.1:8000/authorize/'; }}
+              onClick={() => { window.location = 'http://127.0.0.1:8000/react_auth/'; }}
               type="button"
               style={{
                 padding: '20px', fontSize: '50px', marginTop: '20px', background: 'tomato',
