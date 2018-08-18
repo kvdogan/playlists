@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 # from django.http import JsonResponse
 import json
 import base64
@@ -8,6 +9,7 @@ import mysite.spotify_settings as spotify
 
 
 def _app_Authorization(request):
+    """Redirect to spotify auth backend with Client ID to authorize application"""
     auth_query_parameters = {
         "response_type": spotify.RESPONSE_TYPE,
         "redirect_uri": spotify.REDIRECT_URI,
@@ -22,38 +24,43 @@ def _app_Authorization(request):
     return redirect(url_args)
 
 
-def _user_Authorization(request):
+def _api_Authorization(request):
     """Generate headers for Spotify Web API with access token"""
-    auth_token = request.GET['code']
-    code_payload = {
+    # Get code from the spotify response of _app_Authorization method
+    code = request.GET['code']
+    # Build form_options and base64encoded params and finally headers that Spotify requires
+    form_options = {
+        "code": str(code),
+        "redirect_uri": spotify.REDIRECT_URI,
         "grant_type": "authorization_code",
-        "code": str(auth_token),
-        "redirect_uri": spotify.REDIRECT_URI
     }
     base64encoded = base64.b64encode(
         bytes(f"{spotify.CLIENT_ID}:{spotify.CLIENT_SECRET}", encoding='utf-8')
     )
     headers = {"Authorization": f"Basic {base64encoded.decode('utf-8')}"}
-    post_request = requests.post(
-        spotify.SPOTIFY_TOKEN_URL,
-        data=code_payload,
-        headers=headers
-    )
-
-    # Tokens are Returned to Application
+    # Make a post request to "https://accounts.spotify.com/api/token" get required access tokens.
+    post_request = requests.post(spotify.SPOTIFY_TOKEN_URL, data=form_options, headers=headers)
+    # Tokens are Returned to Application as response from above request
     response_data = json.loads(post_request.text)
     access_token = response_data["access_token"]
-    # refresh_token = response_data["refresh_token"]
-    # token_type = response_data["token_type"]
-    # expires_in = response_data["expires_in"]
-
-    # Use the access token to access Spotify API
+    refresh_token = response_data["refresh_token"]
+    token_type = response_data["token_type"]
+    expires_in = response_data["expires_in"]
+    # Use the access token to create auth_headers which is necessary to access Spotify API
     authorization_header = {"Authorization": f"Bearer {access_token}"}
+    # Bundle all response data in python dict to utilize in different requests.
+    api_authorization_tokens = {
+        'response_data': response_data,
+        'access_token': access_token,
+        'refresh_token': refresh_token,
+        'token_type': token_type,
+        'expires_in': expires_in,
+        'authorization_header': authorization_header
+    }
+    return api_authorization_tokens
 
-    return authorization_header
 
-
-# Spotify API wrappers
+# Spotify API wrappers for API calls in the backend, may have the same in the frontend react app.
 def get_profile_data(auth_header):
     # Get user profile data
     user_profile_api_endpt = f"{spotify.SPOTIFY_API_URL}/me"
@@ -95,18 +102,19 @@ def home(request):
     return render(request, "view1.html", {})
 
 
-def callback(request):
-    authorization_header = _user_Authorization(request)
-
+def backend_callback(request):
+    """
+    Wrapper method to get info from server by multiple API calls in the backend and render them
+    together with custom data in the template.
+    """
+    authorization_header = _api_Authorization(request)['authorization_header']
     # Gathering of profile data
     profile_data = get_profile_data(authorization_header)
-
     # Gathering of playlist data
     playlist_data = get_playlist_data(authorization_header)
-
     # Gathering of artist, album, track etc from album data
     album_data = get_album_data(authorization_header)
-
+    # Custom data for demonstration purposes
     serverData = {
         'user': {
             'name': 'Dogan',
@@ -139,13 +147,32 @@ def callback(request):
             ],
         },
     }
-
     return render(
-        request, "view1.html",
+        request, "songbank.html",
         {
             'serverData': serverData,
-            # 'profile_data': profile_data,
-            # 'playlist_data': playlist_data,
-            # 'album_data': album_data
+            'profile_data': profile_data,
+            'playlist_data': playlist_data,
+            'album_data': album_data
         }
     )
+
+
+def frontend_callback(request):
+    """
+    Get Spotify access_token by executing _app_authorization and _api_Authorization views
+    respectively and pass required token to the home view as query strings to be used with react
+    frontend.
+    """
+    authorization_tokens = _api_Authorization(request)
+    access_token = authorization_tokens['access_token']
+    refresh_token = authorization_tokens['refresh_token']
+
+    # Get "http://127.0.0.1:8000/ or whatever reverse returns which is relative and '/' in this case
+    redirect_url = f"http://{request.get_host()}{reverse('playlists:home')}"
+    query_params = {'access_token': access_token, 'refresh_token': refresh_token}
+
+    # http://docs.python-requests.org/en/latest/user/advanced/#prepared-requests
+    prepped_request = requests.Request('GET', redirect_url, params=query_params).prepare()
+
+    return redirect(prepped_request.url)

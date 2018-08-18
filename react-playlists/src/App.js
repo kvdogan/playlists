@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import queryString from 'query-string';
 // import { library } from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { fab } from '@fortawesome/pro-light-svg-icons';
@@ -121,9 +122,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // setTimeout(() => {
-    //   this.setState({ serverData: fakeServerData });
-    // }, 1000);
+    const parsed = queryString.parse(window.location.search);
+    const accessToken = parsed.access_token;
+
+    fetch('https://api.spotify.com/v1/me/', {
+      headers: { 'Authorization': 'Bearer ' + accessToken },
+    }).then(response => response.json())
+      .then(data => console.log(data));
   }
 
   render() {
