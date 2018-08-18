@@ -140,7 +140,7 @@ INTERNAL_IPS = ['127.0.0.1', ]
 # This is for local development
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'build/',
+        'BUNDLE_DIR_NAME': 'reactBuild/',
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
     }
 }

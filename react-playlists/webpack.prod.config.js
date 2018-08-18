@@ -28,7 +28,7 @@ module.exports = {
     vendors: ['react'],
   },
   output: {
-    path: path.resolve('../mysitestatic/build'),
+    path: path.resolve('../mysitestatic/reactBuild'),
     filename: '[name]-[hash].js',
   },
   module: {
@@ -41,13 +41,14 @@ module.exports = {
         },
       },
       {
-        test: /\.(svg$|png$|gif$|jpe?g$|woff$|ttf$|wav$|mp3$)$/,
+        type: 'javascript/auto',
+        test: /\.(svg|png|gif|jpe?g|woff|ttf|wav|mp3|json)$/,
         include: path.resolve('./src'),
         use: {
           loader: 'file-loader',
           options: {
             context: '',
-            name: '[path]/static/[name]-[hash].[ext]',
+            name: '[name].[ext]',
           },
         },
       },

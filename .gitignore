@@ -42,7 +42,7 @@ fixtures/dom/public/react-dom.js
 fixtures/dom/public/react.js
 
 # production
-mysitestatic/build/
+mysitestatic/reactBuild/
 webpack-stats*.json
 webpack.*-settings.js
 
