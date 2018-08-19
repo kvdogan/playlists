@@ -129,7 +129,7 @@ def react_callback(request):
     access_token = authorization_tokens['access_token']
     refresh_token = authorization_tokens['refresh_token']
 
-    # Get "http://127.0.0.1:8000/ or whatever reverse returns which is relative and '/' in this case
+    # Get "http://127.0.0.1:8000/ and reverse returns 'react/' in this case
     redirect_url = f"http://{request.get_host()}{reverse('playlists:react')}"
     query_params = {'access_token': access_token, 'refresh_token': refresh_token}
 
