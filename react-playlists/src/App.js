@@ -105,6 +105,7 @@ const Playlist = ({ playlist }) => (
   <div style={{ ...defaultStyle, width: '20%', display: 'inline-block' }}>
     <img src="" alt="" />
     <h3>{playlist.name}</h3>
+    <img src={playlist.imageUrl} alt="" style={{ height: '120px', width: '120px' }} />
     <ul>
       {playlist.songs.map(song => <li>{song.name}</li>)}
     </ul>
@@ -116,7 +117,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      serverData: {},
+      user: {},
+      playlists: [],
       filterString: '',
     };
   }
@@ -125,16 +127,56 @@ class App extends Component {
     const parsed = queryString.parse(window.location.search);
     const accessToken = parsed.access_token;
 
+    // Creating user objects from spotify api to be used in our app.
     fetch('https://api.spotify.com/v1/me/', {
-      headers: { 'Authorization': 'Bearer ' + accessToken },
+      headers: { Authorization: `Bearer ${accessToken}` },
     }).then(response => response.json())
-      .then(data => console.log(data));
+      .then(userData => this.setState({ user: { id: userData.id } }));
+
+    // Creating playlist arrays of playlist objects.
+    fetch('https://api.spotify.com/v1/me/playlists', {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    }).then(response => response.json())
+      .then((playlistData) => {
+        const playlistsArray = playlistData.items;
+
+        // Get List/Array of promises for track lists in the playlistsArray
+        const playlistTracksPromises = playlistsArray.map(playlist => (
+          fetch(playlist.tracks.href, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }).then(response => response.json())
+        ));
+
+        // Bundles all promises and wait for all of them to be resolved.
+        const allTracksDataPromises = Promise.all(playlistTracksPromises);
+
+        const playlistsPromise = allTracksDataPromises.then((trackDatas) => {
+          trackDatas.forEach((trackData, i) => {
+            playlistsArray[i].trackDatas = trackData.items
+              .map(item => item.track)
+              .map(singleTrack => ({
+                name: singleTrack.name,
+                duration: singleTrack.duration_ms,
+              }));
+          });
+          return playlistsArray;
+        });
+        return playlistsPromise;
+      })
+      .then(playlistsArray => this.setState({
+        playlists: playlistsArray.map(item => ({
+          name: item.name,
+          imageUrl: item.images[0].url,
+          songs: item.trackDatas.slice(0, 3),
+        })),
+      }));
   }
 
+
   render() {
-    const { serverData, filterString } = this.state;
-    const filteredPlaylist = serverData.user
-      ? serverData.user.playlists
+    const { user, playlists, filterString } = this.state;
+    const filteredPlaylist = user && playlists
+      ? playlists
         .filter(playlist => playlist.name.toLowerCase()
           .includes(filterString.toLowerCase()))
       : [];
@@ -142,10 +184,10 @@ class App extends Component {
     return (
       <div style={{ textAlign: 'center' }}>
         {
-          serverData.user ? (
+          user ? (
             <div>
               <h1 style={{ ...defaultStyle, fontSize: '50px' }}>
-                {serverData.user.name}&rsquo;s Playlist
+                {user.id}&rsquo;s Playlist
               </h1>
               <PlaylistCounter playlists={filteredPlaylist} />
               <SongCounter playlists={filteredPlaylist} />

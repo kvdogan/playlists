@@ -15,15 +15,17 @@
 
 <body>
 
-  <a href="{% url 'playlists:react_auth' %}" 
-     style="background: tomato; padding: 20px; font-size: 50px; margin: 20px">
-    Go to react frontend App!
-  </a>
-  
-  <a href="{% url 'playlists:songbank_auth' %}"
-     style="background: tomato; padding: 20px; font-size: 50px; margin: 20px">
-    Call Spotify data from backend!
-  </a>
+  <div class="container" style="display: inline-flex">
+    <a href="{% url 'playlists:react_auth' %}"
+    style="background: tomato; padding: 20px; font-size: 45px; margin: 20px;">
+      Go to react frontend App!
+    </a>
+
+    <a href="{% url 'playlists:songbank_auth' %}"
+    style="background: tomato; padding: 20px; font-size: 45px; margin: 20px;">
+      Call Spotify data from backend!
+    </a>
+  </div>
 
 
 </body>

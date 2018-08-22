@@ -13,7 +13,13 @@ SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 # Server-side Parameters
 RESPONSE_TYPE = "code"
 STATE = ""
-SCOPE = "user-library-read playlist-read-collaborative user-read-email user-read-private user-read-birthdate"
-
+SCOPE = """
+    user-read-private user-read-email user-read-birthdate user-library-read
+    playlist-read-private playlist-read-collaborative
+    user-read-recently-played user-top-read
+    streaming app-remote-control
+    user-read-currently-playing user-read-playback-state
+    user-follow-read
+"""
 SHOW_DIALOG_bool = True
 SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()

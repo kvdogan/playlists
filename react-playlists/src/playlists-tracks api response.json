@@ -1,0 +1,109 @@
+{
+  "href": "https://api.spotify.com/v1/users/kvdogan/playlists?offset=0&limit=20",
+  "items": [
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/user/mottomuzik/playlist/38z5w2zwuDa7m79iw8Xgau"
+      },
+      "href": "https://api.spotify.com/v1/users/mottomuzik/playlists/38z5w2zwuDa7m79iw8Xgau",
+      "id": "38z5w2zwuDa7m79iw8Xgau",
+      "images": [
+        {
+          "height": null,
+          "url": "https://pl.scdn.co/images/pl/default/e064c695704ec81f56fbd1f058caa3999cbc6110",
+          "width": null
+        }
+      ],
+      "name": "Bob Dylan'ın En İyileri",
+      "tracks": {
+        "href": "https://api.spotify.com/v1/users/mottomuzik/playlists/38z5w2zwuDa7m79iw8Xgau/tracks",
+        "total": 20
+      },
+      "type": "playlist",
+      "uri": "spotify:user:mottomuzik:playlist:38z5w2zwuDa7m79iw8Xgau"
+    }
+  ],
+  "limit": 20,
+  "next": "https://api.spotify.com/v1/users/kvdogan/playlists?offset=20&limit=20",
+  "offset": 0,
+  "previous": null,
+  "total": 21
+}
+
+---------------------------------------------------------------------------------------
+
+{
+  "href": "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZF1DWXRqgorJj26U/tracks?offset=0&limit=10",
+  "items": [
+    {
+      "track": {
+        "album": {
+          "album_type": "album",
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/36QJpDe2go2KgaRleHCDTp"
+              },
+              "href": "https://api.spotify.com/v1/artists/36QJpDe2go2KgaRleHCDTp",
+              "id": "36QJpDe2go2KgaRleHCDTp",
+              "name": "Led Zeppelin",
+              "type": "artist",
+              "uri": "spotify:artist:36QJpDe2go2KgaRleHCDTp"
+            }
+          ],
+          "href": "https://api.spotify.com/v1/albums/70lQYZtypdCALtFVlQAcvx",
+          "id": "70lQYZtypdCALtFVlQAcvx",
+          "images": [
+            {
+              "height": 640,
+              "url": "https://i.scdn.co/image/5fa3a6cc1848ea743a293d2088046746d1b09608",
+              "width": 640
+            },
+            {
+              "height": 300,
+              "url": "https://i.scdn.co/image/15f3edb2e239d4115bd8246684294b2ad7aef00a",
+              "width": 300
+            },
+            {
+              "height": 64,
+              "url": "https://i.scdn.co/image/670b116c5f640832730cfd060acb17dbd9b2a997",
+              "width": 64
+            }
+          ],
+          "name": "Led Zeppelin II",
+          "release_date": "1969-10-22",
+          "release_date_precision": "day",
+          "total_tracks": 9,
+          "type": "album",
+          "uri": "spotify:album:70lQYZtypdCALtFVlQAcvx"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/36QJpDe2go2KgaRleHCDTp"
+            },
+            "href": "https://api.spotify.com/v1/artists/36QJpDe2go2KgaRleHCDTp",
+            "id": "36QJpDe2go2KgaRleHCDTp",
+            "name": "Led Zeppelin",
+            "type": "artist",
+            "uri": "spotify:artist:36QJpDe2go2KgaRleHCDTp"
+          }
+        ],
+        "disc_number": 1,
+        "duration_ms": 333893,
+        "name": "Whole Lotta Love",
+        "popularity": 74,
+        "preview_url": "https://p.scdn.co/mp3-preview/ce11b19a4d2de9976d7626df0717d0073863909c?cid=78e16189786b45e4a92eb251b13c5ce6",
+        "track": true,
+        "track_number": 1,
+        "type": "track",
+        "uri": "spotify:track:0hCB0YR03f6AmQaHbwWDe8"
+      }
+    }
+  ],
+  "limit": 10,
+  "next": "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZF1DWXRqgorJj26U/tracks?offset=10&limit=10",
+  "offset": 0,
+  "previous": null,
+  "total": 200
+}
