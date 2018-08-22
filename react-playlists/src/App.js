@@ -107,7 +107,7 @@ const Playlist = ({ playlist }) => (
     <h3>{playlist.name}</h3>
     <img src={playlist.imageUrl} alt="" style={{ height: '120px', width: '120px' }} />
     <ul>
-      {playlist.songs.map(song => <li>{song.name}</li>)}
+      {playlist.songs.slice(0, 3).map(song => <li>{song.name}</li>)}
     </ul>
   </div>
 );
@@ -167,7 +167,7 @@ class App extends Component {
         playlists: playlistsArray.map(item => ({
           name: item.name,
           imageUrl: item.images[0].url,
-          songs: item.trackDatas.slice(0, 3),
+          songs: item.trackDatas,
         })),
       }));
   }
@@ -175,11 +175,18 @@ class App extends Component {
 
   render() {
     const { user, playlists, filterString } = this.state;
+    console.log(playlists);
     const filteredPlaylist = user && playlists
       ? playlists
-        .filter(playlist => playlist.name.toLowerCase()
-          .includes(filterString.toLowerCase()))
-      : [];
+        .filter(
+          (playlist) => {
+            const playlistMatch = playlist.name.toLowerCase()
+              .includes(filterString.toLowerCase());
+            const songMatch = playlist.songs.find(song => song.name.toLowerCase()
+              .includes(filterString.toLowerCase()));
+            return playlistMatch || songMatch;
+          },
+        ) : [];
 
     return (
       <div style={{ textAlign: 'center' }}>
