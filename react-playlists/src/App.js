@@ -4,66 +4,32 @@ import queryString from 'query-string';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { fab } from '@fortawesome/pro-light-svg-icons';
 // import { faSpinner } from '@fortawesome/pro-solid-svg-icons';
+import 'reset-css';
 import './App.css';
+// import fakeServerData from './fakeServerData';
+
+// console.log(fakeServerData.user);
+// console.log(fakeServerData.user.playlists[0].songs);
 
 // library.add(faSpinner);
 
-// const fakeServerData = {
-//   user: {
-//     name: 'Dogan',
-//     playlists: [
-//       {
-//         name: 'My favorites123',
-//         songs: [
-//           { name: 'Beat It', duration: 240000 },
-//           { name: 'Cannelloni Makaroni', duration: 280000 },
-//           { name: 'Rosa helikopter', duration: 300000 },
-//         ],
-//       },
-//       {
-//         name: 'Discover Weekly',
-//         songs: [
-//           { name: 'Beat It', duration: 240000 },
-//           { name: 'Cannelloni Makaroni', duration: 240000 },
-//           { name: 'Rosa helikopter', duration: 240000 },
-//         ],
-//       },
-//       {
-//         name: 'Bana Ozel',
-//         songs: [
-//           { name: 'Naz Bari', duration: 320000 },
-//           { name: 'Azeri Oyun Havasi', duration: 300000 },
-//           { name: 'Acil Ey Omrumun Vari', duration: 360000 },
-//           { name: 'Yakalarsam', duration: 360000 },
-//         ],
-//       },
-//       {
-//         name: 'Another playlist - the best!',
-//         songs: [
-//           { name: 'Beat It', duration: 240000 },
-//           { name: 'Cannelloni Makaroni', duration: 240000 },
-//           { name: 'Rosa helikopter', duration: 240000 },
-//         ],
-//       },
-//       {
-//         name: 'MyPlaylist',
-//         songs: [
-//           { name: 'Beat It', duration: 240000 },
-//           { name: 'Cannelloni Makaroni', duration: 240000 },
-//           { name: 'Rosa helikopter', duration: 240000 },
-//         ],
-//       },
-//     ],
-//   },
-// };
-
 const defaultStyle = {
+  margin: '5px 0 5px 0',
   color: '#fff',
+  'font-family': 'Verdana',
+  'font-size': '16px',
+
 };
 
+const counterStyle = {
+  ...defaultStyle,
+  width: '30%',
+  display: 'inline-block',
+  fontSize: '36px',
+};
 
 const PlaylistCounter = ({ playlists }) => (
-  <div style={{ ...defaultStyle, width: '30%', display: 'inline-block' }}>
+  <div style={counterStyle}>
     <h2>{playlists.length} playlists</h2>
   </div>
 );
@@ -72,8 +38,13 @@ const PlaylistCounter = ({ playlists }) => (
 const SongCounter = ({ playlists }) => {
   const allsongs = playlists
     .reduce((songs, eachplaylist) => songs.concat(eachplaylist.songs), []);
+  const isTooFewSongs = allsongs.length < 10;
+  const songCounterStyle = {
+    ...counterStyle,
+    color: isTooFewSongs ? 'red' : 'white',
+  };
   return (
-    <div style={{ ...defaultStyle, width: '30%', display: 'inline-block' }}>
+    <div style={songCounterStyle}>
       <h2>{allsongs.length} songs</h2>
     </div>
   );
@@ -83,10 +54,15 @@ const SongCounter = ({ playlists }) => {
 const HourCounter = ({ playlists }) => {
   const allSongs = playlists
     .reduce((songs, eachPlaylist) => songs.concat(eachPlaylist.songs), []);
-  const totalDuration = allSongs.reduce((sum, eachSong) => sum + eachSong.duration, 0);
+  const totalDuration = allSongs.reduce((sum, eachSong) => sum + eachSong.duration, 0) / 60000;
+  const isTooFewMin = totalDuration < 30;
+  const hourCounterStyle = {
+    ...counterStyle,
+    color: isTooFewMin ? 'red' : 'white',
+  };
   return (
-    <div style={{ ...defaultStyle, width: '30%', display: 'inline-block' }}>
-      <h2>{totalDuration / 60000} minutes</h2>
+    <div style={hourCounterStyle}>
+      <h2>{totalDuration.toFixed()} minutes</h2>
     </div>
   );
 };
@@ -95,18 +71,31 @@ const HourCounter = ({ playlists }) => {
 const Filter = ({ onTextChange }) => (
   <div style={defaultStyle}>
     <img src="" alt="" />
-    <input type="text" onKeyUp={event => onTextChange(event.target.value)} />
-    Filter
+    <input
+      style={{ ...counterStyle, color: 'black', textAlign: 'center' }}
+      type="text"
+      onKeyUp={event => onTextChange(event.target.value)}
+      placeholder="Search Playlist or Songs"
+    />
   </div>
 );
 
 
-const Playlist = ({ playlist }) => (
-  <div style={{ ...defaultStyle, width: '20%', display: 'inline-block' }}>
+const Playlist = ({ playlist, index }) => (
+  <div
+    style={{
+      ...defaultStyle,
+      width: '26%',
+      padding: '10px',
+      'background-color': index % 2 ? 'gray' : 'silver',
+      order: '0',
+      flex: '1 1 auto',
+    }}
+  >
     <img src="" alt="" />
     <h3>{playlist.name}</h3>
-    <img src={playlist.imageUrl} alt="" style={{ height: '120px', width: '120px' }} />
-    <ul>
+    <img src={playlist.imageUrl} alt="" style={{ height: '120px', width: '120px', padding: '2px' }} />
+    <ul style={{ marginTop: '10px' }}>
       {playlist.songs.slice(0, 3).map(song => <li>{song.name}</li>)}
     </ul>
   </div>
@@ -175,7 +164,6 @@ class App extends Component {
 
   render() {
     const { user, playlists, filterString } = this.state;
-    console.log(playlists);
     const filteredPlaylist = user && playlists
       ? playlists
         .filter(
@@ -189,21 +177,30 @@ class App extends Component {
         ) : [];
 
     return (
-      <div style={{ textAlign: 'center' }}>
+      <div className="App">
         {
           user ? (
             <div>
-              <h1 style={{ ...defaultStyle, fontSize: '50px' }}>
+              <h1 style={{ ...defaultStyle, fontSize: '50px', marginTop: '1%' }}>
                 {user.id}&rsquo;s Playlist
               </h1>
               <PlaylistCounter playlists={filteredPlaylist} />
               <SongCounter playlists={filteredPlaylist} />
               <HourCounter playlists={filteredPlaylist} />
               <Filter onTextChange={text => this.setState({ filterString: text })} />
-
-              {
-                filteredPlaylist.map(playlist => <Playlist playlist={playlist} />)
-              }
+              <div
+                style={{
+                  display: 'flex',
+                  'flex-flow': 'row wrap',
+                  'justify-content': 'center',
+                  'align-items': 'stretch',
+                  'align-content': 'flex-start',
+                }}
+              >
+                {
+                  filteredPlaylist.map((playlist, i) => <Playlist playlist={playlist} index={i} />)
+                }
+              </div>
             </div>
           ) : (
             // <div style={{ ...defaultStyle, margin: '25%' }}>

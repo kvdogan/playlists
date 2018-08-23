@@ -1,32 +1,25 @@
 html, body {
-  background-color: gray;
+  background-color: gold;
+  padding: 10px;
 }
 
 .App {
   text-align: center;
+  background: teal;
+  padding: 10px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+/* aqua 	#00FFFF
+blue 	#0000FF
+cyan 	#00FFFF
+gold 	#FFD700
+gray 	#808080
+lime 	#00FF00
+navy 	#000080
+peru 	#CD853F
+pink 	#FFC0CB
+plum 	#DDA0DD
+red 	#FF0000
+snow 	#FFFAFA
+tan 	#D2B48C
+teal 	#008080 */

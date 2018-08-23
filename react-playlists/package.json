@@ -50,6 +50,7 @@
     "@fortawesome/pro-solid-svg-icons": "^5.1.0-11",
     "@fortawesome/react-fontawesome": "0.1.0-11",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "reset-css": "^4.0.1"
   }
 }
