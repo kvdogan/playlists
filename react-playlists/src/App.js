@@ -25,7 +25,7 @@ const counterStyle = {
   ...defaultStyle,
   width: '30%',
   display: 'inline-block',
-  fontSize: '36px',
+  fontSize: '20px',
 };
 
 const PlaylistCounter = ({ playlists }) => (
@@ -62,7 +62,7 @@ const HourCounter = ({ playlists }) => {
   };
   return (
     <div style={hourCounterStyle}>
-      <h2>{totalDuration.toFixed()} minutes</h2>
+      <h2>{totalDuration.toFixed()} min</h2>
     </div>
   );
 };
@@ -72,7 +72,7 @@ const Filter = ({ onTextChange }) => (
   <div style={defaultStyle}>
     <img src="" alt="" />
     <input
-      style={{ ...counterStyle, color: 'black', textAlign: 'center' }}
+      style={{ ...counterStyle, background: 'khaki', color: 'black', textAlign: 'center' }}
       type="text"
       onKeyUp={event => onTextChange(event.target.value)}
       placeholder="Search Playlist or Songs"
@@ -123,7 +123,7 @@ class App extends Component {
       .then(userData => this.setState({ user: { id: userData.id } }));
 
     // Creating playlist arrays of playlist objects.
-    fetch('https://api.spotify.com/v1/me/playlists', {
+    fetch('https://api.spotify.com/v1/me/playlists?limit=50', {
       headers: { Authorization: `Bearer ${accessToken}` },
     }).then(response => response.json())
       .then((playlistData) => {
